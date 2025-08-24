@@ -54,6 +54,80 @@
   </style>
 </head>
 <body class="antialiased relative bg-glow">
+
+  <!-- CONTADOR FIXO TOP (15:00) -->
+<div id="countdownBar"
+     class="fixed top-3 left-1/2 -translate-x-1/2 z-[9999]
+            glass neon-border rounded-2xl px-4 py-2
+            bg-black/50 backdrop-blur-md shadow-lg
+            flex items-center gap-3 pointer-events-none">
+  <span class="text-[10px] md:text-xs uppercase tracking-[0.2em] text-orange-400 font-bold">Oferta expira em</span>
+  <div class="flex items-baseline gap-1 font-black">
+    <span id="cd-min" class="text-2xl md:text-3xl tabular-nums">15</span>
+    <span class="text-2xl md:text-3xl">:</span>
+    <span id="cd-sec" class="text-2xl md:text-3xl tabular-nums">00</span>
+  </div>
+</div>
+
+<style>
+  /* brilho/pulso sutil no contador */
+  @keyframes neonPulse { 0%,100%{ box-shadow:0 0 12px #ff6a00,0 0 24px #ff3b1f } 50%{ box-shadow:0 0 6px #ff6a00,0 0 14px #ff3b1f } }
+  #countdownBar.neon-border { animation: neonPulse 2.2s ease-in-out infinite; }
+  /* quando zerar */
+  #countdownBar.ended { border-color:#ff3b1f; }
+</style>
+
+<script>
+(function() {
+  // duração padrão: 15 minutos em segundos
+  var DURATION = 15 * 60;
+
+  // calcula/guarda um "horário de término" para persistir no refresh
+  var STORAGE_KEY = "cd_end_ts_v1";
+  var endTs = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+  var now = Date.now();
+  if (isNaN(endTs) || endTs <= now) {
+    endTs = now + DURATION * 1000;
+    localStorage.setItem(STORAGE_KEY, String(endTs));
+  }
+
+  var elMin = document.getElementById("cd-min");
+  var elSec = document.getElementById("cd-sec");
+  var bar = document.getElementById("countdownBar");
+  if (!elMin || !elSec || !bar) return;
+
+  function format(v) { return v < 10 ? "0" + v : String(v); }
+
+  function update() {
+    var remaining = Math.max(0, Math.floor((endTs - Date.now()) / 1000));
+    var m = Math.floor(remaining / 60);
+    var s = remaining % 60;
+    elMin.textContent = format(m);
+    elSec.textContent = format(s);
+
+    if (remaining <= 0) {
+      bar.classList.add("ended");
+      bar.style.background = "rgba(0,0,0,.65)";
+      // texto final opcional (mantém layout)
+      // document.querySelector('#countdownBar span').textContent = "Tempo esgotado";
+      clearInterval(timer);
+    }
+  }
+
+  var timer = setInterval(update, 1000);
+  update();
+
+  // Utilitário opcional: resetar manualmente pelo console quando quiser
+  window.resetCountdown = function(minutes) {
+    var dur = (minutes ? minutes : 15) * 60 * 1000;
+    endTs = Date.now() + dur;
+    localStorage.setItem(STORAGE_KEY, String(endTs));
+    bar.classList.remove("ended");
+    update();
+  };
+})();
+</script>
+
   <!-- HERO -->
   <header class="relative z-10 bg-gradient-to-b from-black/90 to-[#141418] overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
