@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const popup = document.createElement("div");
     popup.className = "fake-popup";
     popup.innerHTML = `
-      <img src="https://i.pravatar.cc/100?img=${Math.floor(Math.random()*70)}" alt="avatar">
+      
       <div>
         <div><b>${sale.nome}</b> acabou de adquirir <b>${sale.pacote}</b></div>
         <small>${sale.cidade} • ${sale.idade} anos</small>
@@ -128,11 +128,11 @@ document.addEventListener("DOMContentLoaded", function(){
     setTimeout(()=>{
       popup.style.animation = "fadeOut .6s forwards";
       setTimeout(()=>popup.remove(), 600);
-    }, 5000); // fica 5s visível
+    }, 10000); // fica 5s visível
   }
 
   // dispara um a cada 15 segundos
-  setInterval(showFakePopup, 15000);
+  setInterval(showFakePopup, 18000);
 </script>
 
 
