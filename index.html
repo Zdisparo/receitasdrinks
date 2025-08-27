@@ -55,6 +55,87 @@
 </head>
 <body class="antialiased relative bg-glow">
 
+  <!-- FIX COUNTER INITIALIZATION -->
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  if (sessionStorage.getItem('cdClosed') !== '1'){
+    const countdownBox = document.getElementById('countdownSticky');
+    if (countdownBox) countdownBox.style.display = "block"; 
+  }
+});
+</script>
+
+
+<!-- POPUPS DE VENDAS FAKE -->
+<style>
+  .fake-popup {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    background: rgba(20,20,28,0.92);
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    animation: fadeIn .6s ease forwards;
+    z-index: 99999;
+  }
+  .fake-popup img {
+    width: 32px; height: 32px; border-radius: 50%; object-fit: cover;
+  }
+  @keyframes fadeIn {
+    from {opacity:0; transform: translateY(40px);}
+    to {opacity:1; transform: translateY(0);}
+  }
+  @keyframes fadeOut {
+    from {opacity:1; transform: translateY(0);}
+    to {opacity:0; transform: translateY(40px);}
+  }
+</style>
+
+<script>
+  const fakeSales = [
+    {nome:"Maria M.", pacote:"Premium", cidade:"São Paulo - SP", idade:27},
+    {nome:"João S.", pacote:"Básico", cidade:"Rio de Janeiro - RJ", idade:34},
+    {nome:"Camila R.", pacote:"Premium", cidade:"Curitiba - PR", idade:22},
+    {nome:"Felipe A.", pacote:"Básico", cidade:"Belo Horizonte - MG", idade:29},
+    {nome:"Larissa P.", pacote:"Premium", cidade:"Fortaleza - CE", idade:31},
+    {nome:"Rafael T.", pacote:"Básico", cidade:"Porto Alegre - RS", idade:25},
+  ];
+
+  let saleIndex = 0;
+
+  function showFakePopup() {
+    const sale = fakeSales[saleIndex % fakeSales.length];
+    saleIndex++;
+
+    const popup = document.createElement("div");
+    popup.className = "fake-popup";
+    popup.innerHTML = `
+      <img src="https://i.pravatar.cc/100?img=${Math.floor(Math.random()*70)}" alt="avatar">
+      <div>
+        <div><b>${sale.nome}</b> acabou de adquirir <b>${sale.pacote}</b></div>
+        <small>${sale.cidade} • ${sale.idade} anos</small>
+      </div>
+    `;
+    document.body.appendChild(popup);
+
+    setTimeout(()=>{
+      popup.style.animation = "fadeOut .6s forwards";
+      setTimeout(()=>popup.remove(), 600);
+    }, 5000); // fica 5s visível
+  }
+
+  // dispara um a cada 15 segundos
+  setInterval(showFakePopup, 15000);
+</script>
+
+
 
   <!-- CONTADOR REGRESSIVO STICKY (começa em 10:59) -->
 <div id="countdownSticky" class="countdown-fixed" data-aos="zoom-in">
@@ -67,7 +148,7 @@
       <p class="text-gray-400 text-[11px] leading-tight">acabou o tempo, acabou o preço.</p>
     </div>
 
-    <a href="#oferta"
+    <a href="Garantir Premium"
        class="btn-brand inline-block px-4 py-2 rounded-lg text-sm font-extrabold shake-hard">
       GARANTIR AGORA 💥
     </a>
@@ -156,7 +237,7 @@
         <span class="text-xs uppercase bg-gradient-to-r from-orange-500 to-red-600 px-2 py-1 rounded font-bold">ACESSO IMEDIATO</span>
         <h1 class="mt-4 text-4xl md:text-5xl font-black leading-tight">🔥 +200 RECEITAS SECRETAS DE DRINKS<br><span class="text-orange-400">OS MESMOS USADOS POR BARTENDERS DE BAR CARO</span></h1>
         <p class="mt-4 text-lg text-gray-300">Aprenda em casa, De forma simples e rápida. Drinks que custam R$40 no bar, por menos de uma cerveja.</p>
-        <a href="#oferta" class="btn-brand mt-6 inline-block px-8 py-4 rounded-xl text-xl font-extrabold">Quero minhas receitas 🍹</a>
+        <a href="#premium" class="btn-brand mt-6 inline-block px-8 py-4 rounded-xl text-xl font-extrabold">Quero minhas receitas 🍹</a>
       </div>
       <div data-aos="fade-left">
   <img src="./head.png"
@@ -209,7 +290,7 @@
           <p class="mt-2 text-gray-300">Acesse em qualquer dispositivo sem complicação</p>
         </div>
       </div>
-      <a href="#oferta" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">QUERO TER MINHAS PRÓPRIAS RECEITAS</a>
+      <a href="#premium" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">QUERO TER MINHAS PRÓPRIAS RECEITAS</a>
     </div>
   </section>
 
@@ -247,7 +328,7 @@
       <span class="text-cyan-400 font-bold">Ou você compra agora e vira o dono do rolê, ou continua sendo só o mais um cara no ambiente.</span>
     </p>
 
-    <a href="#oferta" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
+    <a href="#premium" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
       QUERO VIRAR O DONO DO ROLÊ 🔥🍹
     </a>
   </div>
@@ -295,7 +376,7 @@
       <span class="text-pink-400 font-bold">Ou você compra agora e vira a dona da atenção, ou continua sendo só mais uma convidada.</span>
     </p>
 
-    <a href="#oferta" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
+    <a href="#premium" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
       QUERO VIRAR A DONA DO ROLÊ 💃🍹
     </a>
   </div>
@@ -415,16 +496,78 @@
     </div>
   </section>
 
-  <!-- OFERTA -->
-  <section id="oferta" class="py-20">
-    <div class="max-w-3xl mx-auto px-6 text-center glass rounded-3xl p-10" data-aos="zoom-in">
-      <h2 class="text-3xl md:text-4xl font-black">ÚLTIMA CHANCE! Tenha acesso a <span class="text-orange-400">+200 receitas</span> por apenas:</h2>
-      <p class="mt-4 text-gray-300">Menos que uma caipirinha no bar 🍋</p>
-      <div class="mt-6 text-6xl font-black">R$ 7,90</div>
-      <p class="mt-2 text-sm text-gray-400">Pagamento único • Acesso vitalício</p>
-      <a href="https://pay.cakto.com.br/u2vm5eu" class="btn-brand mt-6 inline-block px-12 py-5 rounded-2xl text-xl font-extrabold">Comprar agora</a>
+  <!-- PLANOS -->
+<section id="planos" class="py-20 bg-[#121218] relative z-10">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+    <h2 class="text-3xl md:text-4xl font-black mb-12" data-aos="fade-up">
+      Escolha seu <span class="text-orange-400">Plano de Drinks</span> 🍹
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <!-- PLANO BÁSICO -->
+      <div class="glass rounded-2xl p-8 border border-gray-600 hover:border-gray-400 transition-all"
+           data-aos="fade-right">
+        <h3 class="text-2xl font-bold text-gray-300">Plano Básico</h3>
+        <p class="text-gray-400 mt-2">Pra quem quer apenas desgutar.</p>
+        <div class="mt-6 text-4xl font-black text-gray-400">R$ 9,90</div>
+        <p class="mt-2 text-sm text-gray-500">Pagamento único • Acesso imediato e vitalício</p>
+
+        <ul class="mt-6 space-y-3 text-left text-gray-300">
+          <li>✔️ +200 Receitas de Drinks do momento"</li>
+          <li>✔️ 2 Bônus</li>
+          
+        </ul>
+
+        <a href="https://pay.cakto.com.br/u2vm5eu_540287"
+           class="mt-8 inline-block px-8 py-3 rounded-xl font-extrabold bg-gray-700 text-gray-300 hover:bg-gray-600 transition-all">
+          Escolher Básico
+        </a>
+      </div>
+
+      <!-- PLANO PREMIUM -->
+      <div class="glass rounded-2xl p-8 premium-border relative" data-aos="fade-left">
+        <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+          <div id="premium"></div>
+
+          <span class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-1 rounded-full font-bold text-sm shadow-lg">
+            MAIS VENDIDO
+          </span>
+        </div>
+        <h3 class="text-2xl font-bold text-yellow-400">Plano Premium (15% Off)</h3>
+        <p class="text-gray-300 mt-2">Transformação real garantida!</p>
+        <div class="mt-6 text-5xl font-black text-yellow-400">R$ 37,00</div>
+        <p class="mt-2 text-sm text-gray-400">Ou 9X de R$ 5,02</p>
+        <p class="mt-2 text-sm text-gray-400">Pagamento único • Acesso vitalício</p>
+
+        <ul class="mt-6 space-y-3 text-left text-gray-300">
+          <li>✨ +200 Drinks do Momento — receitas atuais, criativas e irresistíveis</li>
+          <li>✨ 50 Drinks Afrodisíacos "Proibidos" — sabores que despertam os sentidos</li>
+          <li>✨ Drinks Kids — opções seguras, divertidas e cheias de cor para a criançada</li>
+          <li>✨ Drinks Fitness de Luxo — saudáveis, sofisticados e fáceis de preparar</li>
+          <li>🔥 Guia da Sedução com Drinks — aprenda a impressionar e criar química em cada brinde</li>
+          <li>🔥 Guia da Renda Extra com Drinks — transforme sua paixão por coquetéis em lucro real</li>
+          <li>🔥 + Bônus VIP — conteúdos secretos que elevam seu nível na coquetelaria</li>
+        </ul>
+
+        <a href="https://pay.cakto.com.br/daguo5g_544649"
+           class="mt-8 inline-block px-8 py-4 rounded-xl font-extrabold text-black bg-gradient-to-r from-yellow-400 to-yellow-600 hover:from-yellow-300 hover:to-yellow-500 transition-all shadow-lg">
+          Garantir Premium 🔥
+        </a>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ESTILO NEON PREMIUM -->
+<style>
+  .premium-border {
+    border: 2px solid #FFD700;
+    box-shadow: 0 0 18px #FFD700, 0 0 36px #FFA500;
+  }
+</style>
+
 
   <!-- GARANTIA -->
   <section class="py-20 bg-[#121218]">
