@@ -23,20 +23,84 @@
     .bg-glow::before,.bg-glow::after{content:"";position:absolute;border-radius:50%;filter:blur(120px);opacity:.35;z-index:0;}
     .bg-glow::before{width:400px;height:400px;background:radial-gradient(circle,#22c55e,#16a34a);top:-100px;left:-100px;}
     .bg-glow::after{width:400px;height:400px;background:radial-gradient(circle,#6a00ff,#1f3bff);bottom:-100px;right:-100px;}
+
+    /* ===== POPUP FIXES (centralizar no mobile) ===== */
+    #parabens-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      /* dynamic viewport height for modern browsers; fallback to 100vh */
+      height: 100dvh;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: env(safe-area-inset-top,16px) env(safe-area-inset-right,16px) env(safe-area-inset-bottom,16px) env(safe-area-inset-left,16px);
+      background: rgba(0,0,0,0.82);
+      z-index: 9999;
+      box-sizing: border-box;
+    }
+    #parabens-popup .parabens-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 96%;
+      width: 720px;
+      padding: 20px;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    /* responsive */
+    @media (max-width: 520px) {
+      #parabens-popup .parabens-inner { width: 100%; padding: 16px; border-radius: 12px; }
+      #parabens-popup h1 { font-size: 1.9rem; }
+      #parabens-popup p { font-size: 0.95rem; }
+      #fechar-parabens { padding-left: 14px; padding-right: 14px; }
+    }
+
+    /* confetti canvas */
+    #confetti-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* smooth hide */
+    .popup-hide {
+      opacity: 0 !important;
+      transform: scale(.95) !important;
+      transition: opacity .28s ease, transform .28s ease;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body class="relative bg-glow antialiased">
 
   <!-- PARABÉNS + CONFETE -->
-  <div id="parabens-popup" class="fixed inset-0 flex flex-col items-center justify-center bg-black/80 z-50 text-center">
-    <h1 class="text-4xl md:text-6xl font-extrabold text-green-400 drop-shadow-lg animate-bounce">
-      🎉 PARABÉNS! 🎉
-    </h1>
-    <p class="mt-4 text-base md:text-lg text-gray-200">Você deu o primeiro passo certo!</p>
-    <button id="fechar-parabens" class="mt-6 px-6 md:px-8 py-3 rounded-xl text-lg md:text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 shadow-lg hover:scale-110 transition">
-      🚀 Bora pro próximo passo!
-    </button>
-    <canvas id="confetti-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+  <div id="parabens-popup" aria-hidden="false">
+    <div class="parabens-inner">
+      <h1 class="text-4xl md:text-6xl font-extrabold text-green-400 drop-shadow-lg animate-bounce">
+        🎉 PARABÉNS! 🎉
+      </h1>
+      <p class="text-base md:text-lg text-gray-200 text-center">Você deu o primeiro passo certo!</p>
+      <button id="fechar-parabens" class="px-6 md:px-8 py-3 rounded-xl text-lg md:text-xl font-bold bg-gradient-to-r from-green-500 to-emerald-600 shadow-lg hover:scale-105 transition">
+        🚀 Bora pro próximo passo!
+      </button>
+    </div>
+    <canvas id="confetti-canvas" aria-hidden="true"></canvas>
   </div>
 
   <!-- HERO -->
@@ -69,7 +133,7 @@
 
     <p class="mt-6 text-lg text-gray-300 max-w-2xl mx-auto">
       O valor real desse material é <span class="line-through text-gray-400">R$97</span>,  
-      mas hoje você garante por apenas <span class="text-green-400 font-bold">7x de R$ 5,07</span>  
+      mas hoje você garante por apenas <span class="text-green-400 font-bold">7x de R$ 5,07</span>
     </p>
 
     <p class="mt-2 text-md text-gray-300 max-w-2xl mx-auto">
@@ -109,7 +173,7 @@
 
         <!-- CTA -->
         <div class="mt-8">
-          <a href="https://pay.cakto.com.br/nswf8pc_546535"
+          <a id="cta-principal" href="https://pay.cakto.com.br/nswf8pc_546535"
              class="btn-brand inline-block px-10 py-4 rounded-xl text-2xl font-extrabold shadow-lg transform hover:scale-110 transition-all duration-300 animate-bounce">
             🚀 QUERO O PASSO MATADOR AGORA!
           </a>
@@ -176,25 +240,31 @@
   <script>
     AOS.init({duration:1000, once:true});
 
-    // ALERTA DE ESCASSEZ
+    // mostra alerta de escassez depois de 3s (mantive)
     setTimeout(() => {
-      document.getElementById("alerta-vagas").classList.remove("hidden");
+      const a = document.getElementById("alerta-vagas");
+      if (a) a.classList.remove("hidden");
     }, 3000);
 
-    // CONFETE
+    /* ====== CONFETE (canvas) ====== */
     const confettiCanvas = document.getElementById("confetti-canvas");
-    const ctx = confettiCanvas.getContext("2d");
+    const ctx = confettiCanvas ? confettiCanvas.getContext("2d") : null;
     let confettis = [];
+    let confettiInterval = null;
+    let animFrameId = null;
+    let running = true;
+
     function resizeCanvas() {
-      confettiCanvas.width = window.innerWidth;
-      confettiCanvas.height = window.innerHeight;
+      if (!confettiCanvas) return;
+      confettiCanvas.width = confettiCanvas.clientWidth;
+      confettiCanvas.height = confettiCanvas.clientHeight;
     }
-    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
     function Confetti() {
-      this.x = Math.random() * confettiCanvas.width;
-      this.y = Math.random() * -confettiCanvas.height;
+      this.x = Math.random() * (confettiCanvas ? confettiCanvas.width : window.innerWidth);
+      this.y = (confettiCanvas ? -Math.random() * confettiCanvas.height : -Math.random() * window.innerHeight);
       this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
       this.size = Math.random() * 8 + 4;
       this.speed = Math.random() * 3 + 2;
@@ -202,28 +272,51 @@
     }
 
     function createConfetti() {
+      if (!confettiCanvas) return;
       confettis.push(new Confetti());
     }
 
     function drawConfetti() {
+      if (!ctx || !confettiCanvas) return;
       ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confettis.forEach((c, i) => {
+      for (let i = confettis.length - 1; i >= 0; i--) {
+        const c = confettis[i];
         ctx.fillStyle = c.color;
         ctx.fillRect(c.x, c.y, c.size, c.size);
         c.y += c.speed;
         c.x += c.wind;
-        if (c.y > confettiCanvas.height) confettis.splice(i, 1);
-      });
-      requestAnimationFrame(drawConfetti);
+        if (c.y > confettiCanvas.height + 20) confettis.splice(i, 1);
+      }
+      if (running) animFrameId = requestAnimationFrame(drawConfetti);
     }
 
-    setInterval(createConfetti, 15);
-    drawConfetti();
+    // start confetti
+    if (confettiCanvas && ctx) {
+      confettiInterval = setInterval(createConfetti, 15);
+      drawConfetti();
+    }
 
-    // Fechar PARABÉNS quando clicar no botão
-    document.getElementById("fechar-parabens").addEventListener("click", () => {
-      document.getElementById("parabens-popup").style.display = "none";
-    });
+    /* ====== FECHAR POPUP (botão) ====== */
+const parabensPopup = document.getElementById("parabens-popup");
+const fecharBtn = document.getElementById("fechar-parabens");
+
+fecharBtn && fecharBtn.addEventListener("click", () => {
+  // stop confetti creation + animation
+  running = false;
+  if (confettiInterval) { clearInterval(confettiInterval); confettiInterval = null; }
+  if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+  
+  // smooth hide
+  parabensPopup.classList.add('popup-hide');
+  setTimeout(() => {
+    parabensPopup.style.display = 'none';
+  }, 300);
+});
+
+
+    // Ensure canvas sizing when page loads and on orientation change
+    window.addEventListener('orientationchange', () => setTimeout(resizeCanvas, 300));
+    window.addEventListener('load', resizeCanvas);
   </script>
 </body>
 </html>
