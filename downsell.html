@@ -43,6 +43,32 @@
         Mas pra chegar nesse valor simbólico — quase um presente — eu tive que <b>tirar algumas coisas do pacote original</b>.  
         Relaxa: <u>isso não influencia no resultado final</u>.
       </p>
+
+    <!-- ALERTA DE ESCASSEZ -->
+<div id="alerta-vagas" 
+     class="hidden mt-6 max-w-xl mx-auto px-6 py-4 bg-red-600/90 text-white font-extrabold text-lg rounded-xl shadow-lg animate-pulse relative z-20">
+  ⚠️ Apenas <span class="text-yellow-300">1 Vagas Disponíveis</span> — 
+  <span id="data-hora"></span>
+</div>
+
+<script>
+  // Mostra o alerta depois de 3 segundos
+  setTimeout(() => {
+    document.getElementById("alerta-vagas").classList.remove("hidden");
+  }, 3000);
+
+  // Atualiza data e hora em tempo real
+  function atualizarHora() {
+    const agora = new Date();
+    const data = agora.toLocaleDateString("pt-BR");
+    const hora = agora.toLocaleTimeString("pt-BR", {hour: "2-digit", minute:"2-digit"});
+    document.getElementById("data-hora").textContent = data + " • " + hora;
+  }
+  setInterval(atualizarHora, 1000);
+  atualizarHora();
+</script>
+
+      
     </div>
   </header>
 
