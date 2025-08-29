@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(){
     popup.className = "fake-popup";
     popup.innerHTML = `
       
-      <div>
+    <div>
         <div><b>${sale.nome}</b> acabou de adquirir <b>${sale.pacote}</b></div>
         <small>${sale.cidade} • ${sale.idade} anos</small>
       </div>
@@ -136,11 +136,11 @@ document.addEventListener("DOMContentLoaded", function(){
     setTimeout(()=>{
       popup.style.animation = "fadeOut .6s forwards";
       setTimeout(()=>popup.remove(), 600);
-    }, 10000); // fica 5s visível
+    }, 5000); // fica 5s visível
   }
 
   // dispara um a cada 15 segundos
-  setInterval(showFakePopup, 18000);
+  setInterval(showFakePopup, 15000);
 </script>
 
 
@@ -243,9 +243,9 @@ document.addEventListener("DOMContentLoaded", function(){
     <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
       <div data-aos="fade-right">
         <span class="text-xs uppercase bg-gradient-to-r from-orange-500 to-red-600 px-2 py-1 rounded font-bold">ACESSO IMEDIATO</span>
-        <h1 class="mt-4 text-4xl md:text-5xl font-black leading-tight">🔥 +200 RECEITAS SECRETAS DE DRINKS<br><span class="text-orange-400">OS MESMOS USADOS POR BARTENDERS DE BAR CARO</span></h1>
-        <p class="mt-4 text-lg text-gray-300">Aprenda em casa, De forma simples e rápida. Drinks que custam R$40 no bar, por menos de uma cerveja.</p>
-        <a href="#oferta" class="btn-brand mt-6 inline-block px-8 py-4 rounded-xl text-xl font-extrabold">Quero minhas receitas 🍹</a>
+        <h1 class="mt-4 text-4xl md:text-5xl font-black leading-tight">TENHA ACESSO A<br><span class="text-orange-400">+200 RECEITAS PRONTAS</span> DE DRINKS E COQUETEIS.</h1>
+        <p class="mt-4 text-lg text-gray-300">Receitas simples e praticas dos melhores drinks do momento.</p>
+        <a href="#oferta" class="btn-brand mt-6 inline-block px-8 py-4 rounded-xl text-xl font-extrabold">Quero ter acesso as receitas</a>
       </div>
       <div data-aos="fade-left">
   <img src="./head.png"
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function(){
   <!-- COMO FUNCIONA -->
   <section class="py-20 bg-[#121218] relative z-10">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-center text-3xl md:text-4xl font-black" data-aos="fade-up">Prepare drinks de <span class="text-orange-400">bar caro em casa</span></h2>
+      <h2 class="text-center text-3xl md:text-4xl font-black" data-aos="fade-up">ENTENDA COMO CONSEGUIMOS AJUDAR VOCÊ A PREPARAR  <span class="text-orange-400">AS MELHORES BEBIDAS</span></h2>
       <div class="grid md:grid-cols-3 gap-8 mt-12">
         <div class="glass rounded-2xl p-6" data-aos="fade-up" data-aos-delay="100">
           <h3 class="mt-4 font-bold text-xl">Variedade</h3>
@@ -303,92 +303,28 @@ document.addEventListener("DOMContentLoaded", function(){
   </section>
 
 
-  <!-- SESSÃO STATUS SOCIAL TURBINADA (MASCULINA COM NEON AZUL) -->
-<section class="py-20 relative z-10">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-3xl md:text-4xl font-black mb-12" data-aos="fade-up">
-      Vire o <span class="text-cyan-400">brabo do rolê</span> — o cara que TODO MUNDO respeita 🍸
+  <!-- SESSÃO FRASE COM FUNDO -->
+<section class="relative py-32 bg-center bg-cover bg-no-repeat" style="background-image: url('./btd.png');">
+  <div class="absolute inset-0 bg-black/70"></div> <!-- camada escura por cima da imagem -->
+
+  <div class="relative max-w-4xl mx-auto px-6 text-center" data-aos="zoom-in">
+    <h2 class="text-3xl md:text-4xl font-black leading-tight">
+      <span class="text-white">DESBLOQUEIE O</span> 
+      <span class="bg-orange-600 px-2 py-1 rounded">BARTENDER DENTRO DE VOCÊ</span>,  
+      <span class="text-white">E FAÇA BEBIDAS ESPECIAIS PARA CADA OCASIÃO.</span>
     </h2>
-    <div class="grid md:grid-cols-2 gap-10">
 
-      <!-- Bloco 1 -->
-      <div class="glass rounded-2xl p-8 neon-border-blue" data-aos="zoom-in">
-        <h3 class="text-xl font-bold text-cyan-400">🔥 Mulheres aos seus pés</h3>
-        <p class="mt-2 text-gray-300">
-          Com essas receitas, você não é só o cara que bebe... você é o <b>homem que serve, impressiona e conquista</b>.  
-          Enquanto os outros pedem cerveja, você entrega drink digno de bar caro — e as mulheres vão se colar em você.
-        </p>
-      </div>
-
-      <!-- Bloco 2 -->
-      <div class="glass rounded-2xl p-8 neon-border-blue" data-aos="zoom-in" data-aos-delay="150">
-        <h3 class="text-xl font-bold text-cyan-400">🍸 O cara desejado da noite</h3>
-        <p class="mt-2 text-gray-300">
-          Não vai ser lembrado como “mais um”. Vai ser o <b>cara que comanda o rolê</b>, que todo mundo respeita e as mina desejam.  
-          Quem sabe fazer os drinks manda na festa.
-        </p>
-      </div>
-
-    </div>
-
-    <p class="mt-10 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-      Isso aqui não é só receitas. É <b>status social</b>, é respeito, é olhar de desejo.  
-      <span class="text-cyan-400 font-bold">Ou você compra agora e vira o dono do rolê, ou continua sendo só o mais um cara no ambiente.</span>
+    <p class="mt-6 text-gray-200 text-lg max-w-2xl mx-auto">
+      Na apostila as receitas têm o passo a passo, mais modo de preparo com todos os ingredientes.
     </p>
 
-    <a href="#oferta" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
-      QUERO VIRAR O DONO DO ROLÊ 🔥🍹
+    <a href="#oferta" 
+       class="btn-brand mt-8 inline-block px-10 py-4 rounded-xl text-lg font-extrabold shadow-lg transform hover:scale-110 transition-all duration-300">
+       QUERO LIBERAR MEU BARTENDER INTERIOR 🍹
     </a>
   </div>
 </section>
 
-<style>
-  .neon-border-blue {
-    box-shadow: 0 0 18px #00eaff, 0 0 36px #009dff;
-    border: 2px solid #00eaff;
-    background: rgba(14,20,26,.72);
-  }
-</style>
-
-
- <!-- SESSÃO STATUS SOCIAL VERSÃO FEMININA -->
-<section class="py-20 relative z-10">
-  <div class="max-w-6xl mx-auto px-6 text-center">
-    <h2 class="text-3xl md:text-4xl font-black mb-12" data-aos="fade-up">
-      Vire a <span class="text-pink-400">rainha do rolê</span> — a amiga que TODO MUNDO admira 🍸
-    </h2>
-    <div class="grid md:grid-cols-2 gap-10">
-
-      <!-- Bloco 1 -->
-      <div class="glass rounded-2xl p-8 neon-border-pink" data-aos="zoom-in">
-        <h3 class="text-xl font-bold text-pink-400">💃 Destaque entre as amigas</h3>
-        <p class="mt-2 text-gray-300">
-          Enquanto elas levam vinho barato, você chega com <b>drinks dignos de bar de luxo</b>.  
-          Sua mesa vira atração da festa e todo mundo quer saber a sua receita.
-        </p>
-      </div>
-
-      <!-- Bloco 2 -->
-      <div class="glass rounded-2xl p-8 neon-border-pink" data-aos="zoom-in" data-aos-delay="150">
-        <h3 class="text-xl font-bold text-pink-400">📸 Drinks instagramáveis</h3>
-        <p class="mt-2 text-gray-300">
-          Drinks coloridos, sofisticados e fotogênicos.  
-          Você não só brilha no rolê, como também no feed — curtidas garantidas a cada copo que prepara.
-        </p>
-      </div>
-
-    </div>
-
-    <p class="mt-10 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="300">
-      Não é só sobre beber — é sobre <b>status, estilo e ser lembrada</b>.  
-      <span class="text-pink-400 font-bold">Ou você compra agora e vira a dona da atenção, ou continua sendo só mais uma convidada.</span>
-    </p>
-
-    <a href="#oferta" class="btn-brand mt-10 inline-block px-12 py-4 rounded-xl text-lg font-extrabold">
-      QUERO VIRAR A DONA DO ROLÊ 💃🍹
-    </a>
-  </div>
-</section>
 
 <style>
   .neon-border-pink {
@@ -469,7 +405,7 @@ document.addEventListener("DOMContentLoaded", function(){
         <p class="text-center font-black leading-tight text-white text-2xl md:text-3xl
                    drop-shadow-[0_0_18px_rgba(255,106,0,0.9)]
                    bg-black/35 backdrop-blur-sm px-4 py-3 rounded-xl">
-          PARE DE PAGAR R$40 NO BAR — FAÇA MELHOR EM CASA AGORA!
+          
         </p>
       </div>
     </div>
@@ -504,7 +440,9 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
   </section>
 
- <!-- PLANO PREMIUM CENTRALIZADO -->
+  
+     
+      <!-- PLANO PREMIUM CENTRALIZADO -->
 <section class="py-20 relative z-10">
   <div class="max-w-3xl mx-auto px-6 text-center">
     <div class="glass rounded-2xl p-10 premium-border relative inline-block" data-aos="fade-up">
@@ -517,9 +455,9 @@ document.addEventListener("DOMContentLoaded", function(){
       </div>
 
       <h3 class="text-3xl font-bold text-yellow-400 mt-4">Promoção (85% Off)</h3>
-      <p class="text-gray-300 mt-2">Transformação real garantida!</p>
+      <p class="text-gray-300 mt-2">ULTIMA CHANCE! TENHA ACESSO A +200 RECEITAS DOS MELHORES DRINKS</p>
 
-     <!-- PREÇO -->
+      <!-- PREÇO -->
 <div class="mt-6">
   <div class="text-gray-400 text-lg line-through">R$ 29,00</div>
   <div class="text-6xl font-black text-yellow-400">R$ 7,90</div>
@@ -534,19 +472,23 @@ document.addEventListener("DOMContentLoaded", function(){
         <li>🔥 Guia da Renda Extra com Drinks — transforme paixão em lucro real</li>
         <li>🔥 + BÔNUS VIP -  Segredos Exclusivo da Coquetelaria</li>
       </ul>
-          
-     
 
       <!-- BOTÃO CTA -->
-     <!-- BOTÃO CTA -->
      <a id="oferta" href="https://pay.cakto.com.br/u2vm5eu_540287" 
    class="btn-brand inline-block px-10 py-4 mt-6 rounded-xl text-2xl font-extrabold shadow-lg transform hover:scale-110 transition-all duration-300 animate-bounce">
-  👉 Garantir Oferta Insana!
+  👉 QUERO AS RECEITAS AGORA!
 </a>
-      </a>
+
+
     </div>
   </div>
 </section>
+
+
+
+
+
+
 
 <!-- ESTILO NEON PREMIUM -->
 <style>
