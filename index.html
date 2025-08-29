@@ -98,52 +98,6 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 </style>
 
-<script>
-  const fakeSales = [
-    {nome:"Maria M.", cidade:"São Paulo - SP", idade:27},
-    {nome:"João S.", cidade:"Rio de Janeiro - RJ", idade:34},
-    {nome:"Camila R.", cidade:"Curitiba - PR", idade:22},
-    {nome:"Felipe A.", cidade:"Belo Horizonte - MG", idade:29},
-    {nome:"Larissa P.", cidade:"Fortaleza - CE", idade:31},
-    {nome:"Juli Silva", cidade:"Porto Alegre - RS", idade:25},
-    {nome:"Rafaela l.", cidade:"Salvador - BA", idade:29},
-    {nome:"Raimundo Souza", cidade:"Porto Alegre - RS", idade:49},
-    {nome:"Suzana Soares", cidade:"Belém - PA", idade:37},
-    {nome:"Alanna D.", cidade:"Goiânia - GO", idade:44},
-    {nome:"Sezaque H.", cidade:"São Luís - MA", idade:22},
-    {nome:"Juliana Matos", cidade:"Natal - RN", idade:25},
-    {nome:"Joel Silva", cidade:"Florianópolis - SC", idade:32},
-    {nome:"Josue albamo", cidade:"Teresina - PI", idade:25},
-  ];
-
-  let saleIndex = 0;
-
-  function showFakePopup() {
-    const sale = fakeSales[saleIndex % fakeSales.length];
-    saleIndex++;
-
-    const popup = document.createElement("div");
-    popup.className = "fake-popup";
-    popup.innerHTML = `
-      
-    <div>
-        <div><b>${sale.nome}</b> acabou de adquirir <b>${sale.pacote}</b></div>
-        <small>${sale.cidade} • ${sale.idade} anos</small>
-      </div>
-    `;
-    document.body.appendChild(popup);
-
-    setTimeout(()=>{
-      popup.style.animation = "fadeOut .6s forwards";
-      setTimeout(()=>popup.remove(), 600);
-    }, 5000); // fica 5s visível
-  }
-
-  // dispara um a cada 15 segundos
-  setInterval(showFakePopup, 15000);
-</script>
-
-
 
   <!-- CONTADOR REGRESSIVO STICKY (começa em 10:59) -->
 <div id="countdownSticky" class="countdown-fixed" data-aos="zoom-in">
